@@ -1,0 +1,36 @@
+
+
+html
+  head
+  body
+    #mapdiv
+    script(src='http://www.openlayers.org/api/OpenLayers.js')
+    script.
+      map = new OpenLayers.Map("mapdiv");
+      map.addLayer(new OpenLayers.Layer.OSM());
+      var zoom=8;
+      map.setCenter (-74.005970, 40.714270, zoom);
+      
+    each val in list
+      script.
+        var markers = new OpenLayers.Layer.Markers( "Markers" );
+        map.addLayer(markers);
+        markers.addMarker(new OpenLayers.Marker( new OpenLayers.LonLat(#{val.address[0]} ,#{val.address[1]} )
+        .transform(
+        new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+        map.getProjectionObject() // to Spherical Mercator Projection
+        )));
+        markers.events.register("click", markers, function() {
+        popup = new OpenLayers.Popup("chicken",
+        new OpenLayers.LonLat(500,40000),
+        new OpenLayers.Size(200,200),
+        "example popup",
+        true);
+
+        map.addPopup(popup);
+        });
+
+        
+    
+      
+        

@@ -1,0 +1,11 @@
+html
+  head
+    title= title
+  body
+    h1= message
+    // elenco numerato
+    ol
+      each rest in list
+        li= rest.name
+        |In via 
+        | #{rest.via} #{rest.numero}
